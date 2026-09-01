@@ -17,7 +17,7 @@ completed first.
 There are 5 turbines and 3 temporal resolutions, giving **15 turbine–resolution
 configurations**.
 
-For each configuration, set `TURBINE_ID` and `FREQ` in the forecasting project
+For each configuration, check the set of `TURBINE_ID` and `FREQ` in 'config.py'
 and run:
 
 ```bash
@@ -29,7 +29,7 @@ forecasting `main.py` is run **15 times in total**, not 75 times.
 
 ### 2. Generate pointwise forecasts
 
-For the same 15 turbine–resolution configurations, run:
+After `main.py` has finished runming, for the same 15 turbine–resolution configurations, run:
 
 ```bash
 python inference.py
@@ -39,16 +39,23 @@ Each inference run also loops through E1–E5 and extracts test-set pointwise
 outputs, including actual power and P50 forecasts. This produces the available
 `{turbine}_{freq}_{experiment}_pointwise.csv` files.
 
-`inference.py` only generates pointwise forecasting outputs. It does not
-calculate prices, economic losses, VaR, or CVaR.
+`inference.py` only generates pointwise forecasting outputs.
 
 ### 3. Prepare the economic-model input
 
-Copy all available pointwise CSV files into:
+Create an input folder, and inside it create two subfolders: ablation and pointwise. Copy all available pointwise CSV files into:
 
 ```text
 inputs/pointwise/
 ```
+
+Find 'all_5_ablation_summary' in result folder of 15 forecasting models, rename them as '{turbine}_{freq}_all_5_ablation_summary', and put all files into:
+
+```text
+inputs/ablation/
+```
+
+  ## Note: The ablation files provided in this folder are included as examples. It is recommended to use the latest generated ablation files.
 
 ### 4. Run the economic model
 
